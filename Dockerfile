@@ -14,7 +14,7 @@ LABEL \
     org.opencontainers.image.description='GraalVM is a universal virtual machine for running applications written in JavaScript, Python, Ruby, R, JVM-based languages like Java, Scala, Clojure, Kotlin, and LLVM-based languages such as C and C++.'
     
 RUN microdnf update -y oraclelinux-release-el8 \
-    && microdnf --enablerepo ol8_codeready_builder install bzip2-devel ed gcc gcc-c++ gcc-gfortran gzip file fontconfig less libcurl-devel make openssl openssl-devel readline-devel tar glibc-langpack-en \
+    && microdnf --enablerepo ol8_codeready_builder install bzip2-devel ed gcc gcc-c++ gcc-gfortran gzip zip file fontconfig less libcurl-devel make openssl openssl-devel readline-devel tar glibc-langpack-en \
     vi which xz-devel zlib-devel findutils glibc-static libstdc++ libstdc++-devel libstdc++-static zlib-static \
     && microdnf clean all
 
@@ -47,7 +47,7 @@ RUN set -eux \
 
     && chmod +x /usr/local/bin/gu
 
-# RUN microdnf install -y zip
+# RUN microdnf install -y zip # added above 
 # RUN /usr/local/bin/gu install native-image
 # RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie -o /usr/bin/aws-lambda-rie
 # RUN chmod 755 /usr/bin/aws-lambda-rie
