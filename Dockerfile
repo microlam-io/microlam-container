@@ -1,7 +1,7 @@
 # Copyright (c) 2020 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
-ARG OL_BASE=container-registry.oracle.com/os/oraclelinux:7-slim:8-slim
+ARG OL_BASE=container-registry.oracle.com/os/oraclelinux:8-slim
 FROM ${OL_BASE}
 
 # Note: If you are behind a web proxy, set the build variables for the build:
