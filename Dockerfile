@@ -47,9 +47,9 @@ RUN set -eux \
 
     && chmod +x /usr/local/bin/gu
 
-RUN microdnf install -y zip
-RUN /usr/local/bin/gu install native-image
-RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie -o /usr/bin/aws-lambda-rie
-RUN chmod 755 /usr/bin/aws-lambda-rie
+# RUN microdnf install -y zip
+# RUN /usr/local/bin/gu install native-image
+# RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie -o /usr/bin/aws-lambda-rie
+# RUN chmod 755 /usr/bin/aws-lambda-rie
 
 CMD java -version
