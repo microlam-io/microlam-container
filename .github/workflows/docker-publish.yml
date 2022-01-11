@@ -11,7 +11,7 @@ on:
   push:
     branches: [ master ]
     # Publish semver tags as releases.
-    tags: [ 'java11-graalvm21' ]
+    tags: [ 'java11-graalvm21', 'java11-graalvm21-multiarch' ]
   pull_request:
     branches: [ master ]
 
