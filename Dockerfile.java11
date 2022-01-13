@@ -7,10 +7,10 @@ FROM ${OL_BASE} AS graalvm21-java11
 # Note: If you are behind a web proxy, set the build variables for the build:
 #       E.g.:  docker build --build-arg "https_proxy=..." --build-arg "http_proxy=..." --build-arg "no_proxy=..." ...
 LABEL \
-    org.opencontainers.image.url='https://github.com/graalvm/container' \
-    org.opencontainers.image.source='https://github.com/graalvm/container/tree/master/community' \
-    org.opencontainers.image.title='GraalVM Community Edition' \
-    org.opencontainers.image.authors='GraalVM Sustaining Team <graalvm-sustaining_ww_grp@oracle.com>' \
+    org.opencontainers.image.url='https://github.com/microlam-io/microlam-container' \
+    org.opencontainers.image.source='https://github.com/microlam-io/microlam-container' \
+    org.opencontainers.image.title='GraalVM Community Edition + Microlam extra' \
+    org.opencontainers.image.authors='GraalVM Sustaining Team <graalvm-sustaining_ww_grp@oracle.com>, Frank Afriat<frank@microlam.io>' \
     org.opencontainers.image.description='GraalVM is a universal virtual machine for running applications written in JavaScript, Python, Ruby, R, JVM-based languages like Java, Scala, Clojure, Kotlin, and LLVM-based languages such as C and C++.'
     
 RUN microdnf update -y oraclelinux-release-el8 \
@@ -51,7 +51,7 @@ RUN set -eux \
 
 FROM graalvm21-java11
 
-RUN /bin/bash -c "gu install native-image"
+RUN gu install native-image
 RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie${RIE_SUFFIX} -o /usr/bin/aws-lambda-rie
 RUN chmod 755 /usr/bin/aws-lambda-rie
 
