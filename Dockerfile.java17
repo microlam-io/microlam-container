@@ -49,8 +49,6 @@ RUN set -eux \
 
     && chmod +x /usr/local/bin/gu
 
-CMD java -version
-
 FROM graalvm21-java17
 
 RUN gu install native-image
