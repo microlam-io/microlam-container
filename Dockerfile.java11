@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 ARG OL_BASE=container-registry.oracle.com/os/oraclelinux:8-slim
-FROM ${OL_BASE}
+FROM ${OL_BASE} AS graalvm21-java11
 
 # Note: If you are behind a web proxy, set the build variables for the build:
 #       E.g.:  docker build --build-arg "https_proxy=..." --build-arg "http_proxy=..." --build-arg "no_proxy=..." ...
@@ -47,9 +47,10 @@ RUN set -eux \
 
     && chmod +x /usr/local/bin/gu
 
-# RUN microdnf install -y zip # added above 
-# RUN /usr/local/bin/gu install native-image
-# RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie -o /usr/bin/aws-lambda-rie
-# RUN chmod 755 /usr/bin/aws-lambda-rie
-
 CMD java -version
+
+FROM graalvm21-java11
+
+RUN /usr/local/bin/gu install native-image
+RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie -o /usr/bin/aws-lambda-rie
+RUN chmod 755 /usr/bin/aws-lambda-rie
