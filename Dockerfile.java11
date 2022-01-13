@@ -24,6 +24,7 @@ ARG GRAALVM_VERSION=21.3.0
 ARG JAVA_VERSION=java11
 ARG GRAALVM_PKG=https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-$GRAALVM_VERSION/graalvm-ce-$JAVA_VERSION-GRAALVM_ARCH-$GRAALVM_VERSION.tar.gz
 ARG TARGETPLATFORM
+ARG RIE_SUFFIX=""
 
 ENV LANG=en_US.UTF-8 \
     JAVA_HOME=/opt/graalvm-ce-$JAVA_VERSION-$GRAALVM_VERSION/
@@ -32,6 +33,7 @@ ADD gu-wrapper.sh /usr/local/bin/gu
 RUN set -eux \
     && if [ "$TARGETPLATFORM" == "linux/amd64" ]; then GRAALVM_PKG=${GRAALVM_PKG/GRAALVM_ARCH/linux-amd64}; fi \
     && if [ "$TARGETPLATFORM" == "linux/arm64" ]; then GRAALVM_PKG=${GRAALVM_PKG/GRAALVM_ARCH/linux-aarch64}; fi \
+    && if [ "$TARGETPLATFORM" == "linux/arm64" ]; then RIE_SUFFIX="-arm64"; fi \
     && curl --fail --silent --location --retry 3 ${GRAALVM_PKG} \
     | gunzip | tar x -C /opt/ \
 
@@ -51,6 +53,6 @@ CMD java -version
 
 FROM graalvm21-java11
 
-RUN /usr/local/bin/gu install native-image
-RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie -o /usr/bin/aws-lambda-rie
+RUN gu install native-image
+RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie${RIE_SUFFIX} -o /usr/bin/aws-lambda-rie
 RUN chmod 755 /usr/bin/aws-lambda-rie
