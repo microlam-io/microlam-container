@@ -68,7 +68,7 @@ jobs:
         id: meta-java11
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-java11
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-java11-graalvm22
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -76,7 +76,7 @@ jobs:
         id: meta-java17
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-java17
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-java17-graalvm22
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
