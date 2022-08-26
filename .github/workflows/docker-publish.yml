@@ -110,7 +110,7 @@ jobs:
       - name: Sign the published Docker image Java 11
         if: ${{ github.event_name != 'pull_request' }}
         env:
-          COSIGN_EXPERIMENTAL: "true"
+          COSIGN_EXPERIMENTAL: 1
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-java11.outputs.digest }}
@@ -123,7 +123,7 @@ jobs:
       - name: Sign the published Docker image Java 17
         if: ${{ github.event_name != 'pull_request' }}
         env:
-          COSIGN_EXPERIMENTAL: "true"
+          COSIGN_EXPERIMENTAL: 1
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-java17.outputs.digest }}
