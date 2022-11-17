@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 ARG OL_BASE=container-registry.oracle.com/os/oraclelinux:8-slim
-FROM ${OL_BASE} as graalvm-java17
+FROM ${OL_BASE} as graalvm-java19
 
 # Note: If you are behind a web proxy, set the build variables for the build:
 #       E.g.:  docker build --build-arg "https_proxy=..." --build-arg "http_proxy=..." --build-arg "no_proxy=..." ...
@@ -21,7 +21,7 @@ RUN microdnf update -y oraclelinux-release-el8 \
 RUN fc-cache -f -v
 
 ARG GRAALVM_VERSION=22.3.0
-ARG JAVA_VERSION=java17
+ARG JAVA_VERSION=java19
 ARG GRAALVM_PKG=https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-$GRAALVM_VERSION/graalvm-ce-$JAVA_VERSION-GRAALVM_ARCH-$GRAALVM_VERSION.tar.gz
 ARG TARGETPLATFORM
 ARG RIE_SUFFIX=""
