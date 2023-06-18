@@ -20,8 +20,8 @@ RUN microdnf update -y oraclelinux-release-el8 \
 
 RUN fc-cache -f -v
 
-ARG JDK_VERSION=jdk17.0.7
-ARG GRAALVM_PKG=https://github.com/graalvm/graalvm-ce-builds/releases/download/$JDK_VERSION/graalvm-community-$JDK_VERSION-GRAALVM_ARCH.tar.gz
+ARG JDK_VERSION=jdk-17.0.7
+ARG GRAALVM_PKG=https://github.com/graalvm/graalvm-ce-builds/releases/download/$JDK_VERSION/graalvm-community-$JDK_VERSION_GRAALVM_ARCH_bin.tar.gz
 ARG TARGETPLATFORM
 ARG RIE_SUFFIX=""
 
@@ -30,7 +30,7 @@ ENV LANG=en_US.UTF-8 \
 
 ADD gu-wrapper.sh /usr/local/bin/gu
 RUN set -eux \
-    && if [ "$TARGETPLATFORM" == "linux/amd64" ]; then GRAALVM_PKG=${GRAALVM_PKG/GRAALVM_ARCH/linux-amd64}; fi \
+    && if [ "$TARGETPLATFORM" == "linux/amd64" ]; then GRAALVM_PKG=${GRAALVM_PKG/GRAALVM_ARCH/linux-x64}; fi \
     && if [ "$TARGETPLATFORM" == "linux/arm64" ]; then GRAALVM_PKG=${GRAALVM_PKG/GRAALVM_ARCH/linux-aarch64}; fi \
     && if [ "$TARGETPLATFORM" == "linux/arm64" ]; then RIE_SUFFIX="-arm64"; fi \
     && curl --fail --silent --location --retry 3 ${GRAALVM_PKG} \
