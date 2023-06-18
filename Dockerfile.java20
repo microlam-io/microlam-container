@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 ARG OL_BASE=container-registry.oracle.com/os/oraclelinux:8-slim
-FROM ${OL_BASE} as graalvm-java17
+FROM ${OL_BASE} as graalvm-java20
 
 # Note: If you are behind a web proxy, set the build variables for the build:
 #       E.g.:  docker build --build-arg "https_proxy=..." --build-arg "http_proxy=..." --build-arg "no_proxy=..." ...
@@ -20,7 +20,7 @@ RUN microdnf update -y oraclelinux-release-el8 \
 
 RUN fc-cache -f -v
 
-ARG JDK_VERSION=jdk17.0.7
+ARG JDK_VERSION=jdk20.0.1
 ARG GRAALVM_PKG=https://github.com/graalvm/graalvm-ce-builds/releases/download/$JDK_VERSION/graalvm-community-$JDK_VERSION-GRAALVM_ARCH.tar.gz
 ARG TARGETPLATFORM
 ARG RIE_SUFFIX=""
@@ -48,7 +48,7 @@ RUN set -eux \
 
     && chmod +x /usr/local/bin/gu
 
-FROM graalvm-java17
+FROM graalvm-java20
 
 RUN gu install native-image
 RUN curl -4 -L https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie${RIE_SUFFIX} -o /usr/bin/aws-lambda-rie
