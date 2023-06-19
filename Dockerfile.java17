@@ -21,12 +21,12 @@ RUN microdnf update -y oraclelinux-release-el8 \
 RUN fc-cache -f -v
 
 ARG JDK_VERSION=jdk-17.0.7
-ARG GRAALVM_PKG=https://github.com/graalvm/graalvm-ce-builds/releases/download/$JDK_VERSION/graalvm-community-$JDK_VERSION_GRAALVM_ARCH_bin.tar.gz
+ARG GRAALVM_PKG=https://github.com/graalvm/graalvm-ce-builds/releases/download/$JDK_VERSION/graalvm-community-$JDK_VERSION\_GRAALVM_ARCH_bin.tar.gz
 ARG TARGETPLATFORM
 ARG RIE_SUFFIX=""
 
 ENV LANG=en_US.UTF-8 \
-    JAVA_HOME=/opt/graalvm-community-$JDK_VERSION/
+    JAVA_HOME=/opt/graalvm-community-open$JDK_VERSION+7.1/
 
 ADD gu-wrapper.sh /usr/local/bin/gu
 RUN set -eux \
@@ -45,7 +45,6 @@ RUN set -eux \
     [ ! -e "/usr/bin/$base" ]; \
     alternatives --install "/usr/bin/$base" "$base" "$bin" 20000; \
     done \
-
     && chmod +x /usr/local/bin/gu
 
 FROM graalvm-java17
