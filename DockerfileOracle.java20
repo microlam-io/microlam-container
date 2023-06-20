@@ -21,7 +21,7 @@ RUN microdnf update -y oraclelinux-release-el8 \
 RUN fc-cache -f -v
 
 ARG JDK_VERSION=jdk-20.0.1
-ARG GRAALVM_PKG=https://download.oracle.com/graalvm/17/archive/graalvm-$JDK_VERSION\_GRAALVM_ARCH_bin.tar.gz
+ARG GRAALVM_PKG=https://download.oracle.com/graalvm/20/archive/graalvm-$JDK_VERSION\_GRAALVM_ARCH_bin.tar.gz
 ARG TARGETPLATFORM
 ARG RIE_SUFFIX=""
 
