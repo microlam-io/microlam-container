@@ -78,6 +78,14 @@ jobs:
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata Oracle Java17
+        id: meta-oracle-java17
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-oracle-jdk17.0.7
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
       - name: Extract Docker metadata Java19
         id: meta-java19
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
@@ -91,6 +99,14 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk20.0.1
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata Oracle Java20
+        id: meta-oracle-java20
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-oracle-jdk20.0.1
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -120,6 +136,20 @@ jobs:
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
+      - name: Build and push Docker image Oracle Java17
+        id: build-and-push-oracle-java17
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          file: ./DockerfileOracle.java17
+          platforms: linux/amd64,linux/arm64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta-oracle-java17.outputs.tags }}
+          labels: ${{ steps.meta-oracle-java17.outputs.labels }}
+
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
       - name: Build and push Docker image Java19
         id: build-and-push-java19
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -143,6 +173,20 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-java20.outputs.tags }}
           labels: ${{ steps.meta-java20.outputs.labels }}
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image Oracle Java20
+        id: build-and-push-oracle-java20
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          file: ./DockerfileOracle.java20
+          platforms: linux/amd64,linux/arm64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta-oracle-java20.outputs.tags }}
+          labels: ${{ steps.meta-oracle-java20.outputs.labels }}
+
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
@@ -175,6 +219,20 @@ jobs:
       # repository is public to avoid leaking data.  If you would like to publish
       # transparency data even for private images, pass --force to cosign below.
       # https://github.com/sigstore/cosign
+      - name: Sign the published Docker image Java Oracle 17
+        if: ${{ github.event_name != 'pull_request' }}
+        env:
+          COSIGN_EXPERIMENTAL: 1
+        # This step uses the identity token to provision an ephemeral certificate
+        # against the sigstore community Fulcio instance.
+        run: cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-oracle-jdk17.0.7@${{ steps.build-and-push-oracle-java17.outputs.digest }}
+
+
+      # Sign the resulting Docker image digest except on PRs.
+      # This will only write to the public Rekor transparency log when the Docker
+      # repository is public to avoid leaking data.  If you would like to publish
+      # transparency data even for private images, pass --force to cosign below.
+      # https://github.com/sigstore/cosign
       - name: Sign the published Docker image Java 19
         if: ${{ github.event_name != 'pull_request' }}
         env:
@@ -195,3 +253,16 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk20.0.1@${{ steps.build-and-push-java20.outputs.digest }}
+
+      # Sign the resulting Docker image digest except on PRs.
+      # This will only write to the public Rekor transparency log when the Docker
+      # repository is public to avoid leaking data.  If you would like to publish
+      # transparency data even for private images, pass --force to cosign below.
+      # https://github.com/sigstore/cosign
+      - name: Sign the published Docker image Oracle Java 20
+        if: ${{ github.event_name != 'pull_request' }}
+        env:
+          COSIGN_EXPERIMENTAL: 1
+        # This step uses the identity token to provision an ephemeral certificate
+        # against the sigstore community Fulcio instance.
+        run: cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-oracle-jdk20.0.1@${{ steps.build-and-push-oracle-java20.outputs.digest }}
