@@ -168,7 +168,7 @@ jobs:
           COSIGN_EXPERIMENTAL: 1
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
-        run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk17.0.7@${{ steps.build-and-push-java17.outputs.digest }}
+        run: cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk17.0.7@${{ steps.build-and-push-java17.outputs.digest }}
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
@@ -181,7 +181,7 @@ jobs:
           COSIGN_EXPERIMENTAL: 1
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
-        run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-java19-graalvm22.3.1@${{ steps.build-and-push-java19.outputs.digest }}
+        run: cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-java19-graalvm22.3.1@${{ steps.build-and-push-java19.outputs.digest }}
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
@@ -194,4 +194,4 @@ jobs:
           COSIGN_EXPERIMENTAL: 1
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
-        run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk20.0.1@${{ steps.build-and-push-java20.outputs.digest }}
+        run: cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk20.0.1@${{ steps.build-and-push-java20.outputs.digest }}
