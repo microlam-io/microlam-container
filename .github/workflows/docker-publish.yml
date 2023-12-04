@@ -66,7 +66,7 @@ jobs:
         id: meta-java11
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-java11-graalvm22.3.2
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-java11-graalvm22.3.3
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -82,7 +82,7 @@ jobs:
         id: meta-oracle-java17
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-oracle-jdk17.0.7
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-oracle-jdk17.0.9
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -98,7 +98,7 @@ jobs:
         id: meta-java20
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk20.0.1
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk20.0.2
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -106,7 +106,7 @@ jobs:
         id: meta-oracle-java20
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-oracle-jdk20.0.1
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-oracle-jdk20.0.2
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
