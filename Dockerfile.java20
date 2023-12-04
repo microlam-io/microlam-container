@@ -20,13 +20,13 @@ RUN microdnf update -y oraclelinux-release-el8 \
 
 RUN fc-cache -f -v
 
-ARG JDK_VERSION=jdk-20.0.1
+ARG JDK_VERSION=jdk-20.0.2
 ARG GRAALVM_PKG=https://github.com/graalvm/graalvm-ce-builds/releases/download/$JDK_VERSION/graalvm-community-$JDK_VERSION\_GRAALVM_ARCH_bin.tar.gz
 ARG TARGETPLATFORM
 ARG RIE_SUFFIX=""
 
 ENV LANG=en_US.UTF-8 \
-    JAVA_HOME=/opt/graalvm-community-open$JDK_VERSION+9.1
+    JAVA_HOME=/opt/graalvm-community-open$JDK_VERSION+9
 
 ADD gu-wrapper.sh /usr/local/bin/gu
 RUN set -eux \
